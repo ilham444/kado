@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selamat Ulang Tahun!</title>
+
+  <style>
+    :root {
+      --bg: linear-gradient(45deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+      --card: rgba(255, 255, 255, 0.95);
+      --text: #333;
+      --accent: #ff6b6b;
+      --shadow: rgba(0, 0, 0, 0.15);
+      --border: rgba(255, 215, 0, 0.3);
+      --font: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      font-family: var(--font);
+      color: var(--text);
+      background: var(--bg);
+      background-size: 400% 400%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+      text-align: center;
+      animation: gradientShift 18s ease infinite;
+      padding: 2rem 0 3rem;
+    }
+
+    .card {
+      position: relative;
+      width: min(640px, 90vw);
+      padding: 2.4rem 2rem;
+      border-radius: 2rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.95) 100%);
+      box-shadow: 0 20px 60px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      border: 2px solid var(--border);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      animation: cardGlow 4s ease-in-out infinite alternate;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1.2rem 0 2rem;
+      }
+
+      .card {
+        padding: 1.6rem 1.2rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 6vw, 2.6rem);
+      }
+
+      .media-grid {
+        gap: 0.8rem;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      #wish-form {
+        grid-template-columns: 1fr;
+      }
+
+      #wish-form button {
+        width: 100%;
+      }
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="stars" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.12)"/></pattern></defs><rect width="100" height="100" fill="url(%23stars)"/></svg>') repeat;
+      pointer-events: none;
+      animation: twinkle 4s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.7; }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.12), transparent);
+      pointer-events: none;
+      animation: shimmer 3.5s ease-in-out infinite;
+    }
+
+    @keyframes cardGlow {
+      0% { box-shadow: 0 20px 60px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.6); }
+      100% { box-shadow: 0 25px 80px rgba(255, 215, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8); }
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      margin: 0;
+      line-height: 1.1;
+      background: linear-gradient(45deg, #ff6b6b, #ffd700, #ff69b4, #4ecdc4);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: rainbowText 3s ease-in-out infinite, bounceText 2s ease-in-out infinite;
+      text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+      position: relative;
+    }
+
+    h1::after {
+      content: '✨';
+      position: absolute;
+      right: -1.4rem;
+      top: -0.6rem;
+      animation: sparkle 1.6s ease-in-out infinite;
+    }
+
+    @keyframes bounceText {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.02); }
+    }
+
+    @keyframes rainbowText {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(180deg); opacity: 0.8; }
+    }
+
+    p {
+      margin: 1rem 0 0.6rem;
+      line-height: 1.6;
+      font-size: clamp(1rem, 2.1vw, 1.05rem);
+      opacity: 0;
+      animation: fadeInUp 0.9s ease-out forwards;
+    }
+
+    p:nth-of-type(1) { animation-delay: 0.3s; }
+    p:nth-of-type(2) { animation-delay: 0.5s; }
+    p:nth-of-type(3) { animation-delay: 0.7s; }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .media-grid {
+      display: grid;
+      gap: 1.2rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      justify-items: center;
+      margin-top: 1.7rem;
+    }
+
+    .media-grid img {
+      width: min(180px, 42vw);
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      background: linear-gradient(45deg, #ffd700, #ff69b4, #4ecdc4, #ff6b6b) border-box;
+      box-shadow: 0 0 40px rgba(255, 215, 0, 0.4), inset 0 0 0 5px rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), filter 0.3s;
+    }
+
+    .media-grid img:hover {
+      transform: scale(1.1) rotate(3deg);
+      filter: brightness(1.1) saturate(1.2);
+    }
+
+    .controls {
+      margin-top: 1.8rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    }
+
+    .btn {
+      padding: 0.95rem 1.15rem;
+      border-radius: 22px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      text-transform: uppercase;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
+      position: relative;
+      overflow: hidden;
+      min-height: 48px;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: scale(0);
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 22px;
+      transition: transform 0.4s ease;
+      pointer-events: none;
+    }
+
+    .btn:hover::before {
+      transform: scale(1);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn--gift { background: linear-gradient(135deg, #d63384, #e056b0); color: white; }
+    .btn--love { background: linear-gradient(135deg, #ff6b6b, #ff1493); color: white; }
+    .btn--kiss { background: linear-gradient(135deg, #ff69b4, #c44569); color: white; }
+    .btn--music { background: linear-gradient(135deg, #a8edea, #fed6e3); color: #333; }
+    .btn--fire { background: linear-gradient(135deg, #ffd700, #ffed4e); color: #333; }
+    .btn--rain { background: linear-gradient(135deg, #87ceeb, #b0e0e6); color: #222; }
+    .btn--sparkle { background: linear-gradient(135deg, #da70d6, #ff20ff); color: white; }
+    .btn--theme { background: linear-gradient(135deg, #2c3e50, #34495e); color: white; }
+
+    #wish-form {
+      margin-top: 1.4rem;
+      display: grid;
+      gap: 0.6rem;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      justify-items: stretch;
+    }
+
+    #wish-form input {
+      padding: 0.8rem 1rem;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 215, 0, 0.5);
+      font-size: 0.95rem;
+      outline: none;
+      transition: box-shadow 0.25s ease;
+    }
+
+    #wish-form input:focus {
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.35);
+    }
+
+    #wish-form button {
+      padding: 0.85rem 1.2rem;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ffd700, #ff69b4);
+      color: #333;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    #wish-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.35);
+    }
+
+    #wish-display {
+      margin-top: 0.8rem;
+      min-height: 2.4rem;
+      font-style: italic;
+      color: rgba(0, 0, 0, 0.6);
+      transition: opacity 0.3s ease;
+    }
+
+    .panel {
+      margin-top: 1.6rem;
+      padding: 1.2rem 1.4rem;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+      opacity: 0;
+      animation: fadeInUp 1.2s ease-out 1s forwards;
+    }
+
+    .panel p {
+      margin: 0.35rem 0;
+      font-size: 0.95rem;
+    }
+
+    .heart-bar {
+      width: 100%;
+      height: 18px;
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .heart-bar__fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+      transition: width 0.5s ease;
+    }
+
+    #kiss-effect {
+      margin-top: 1.2rem;
+      font-size: 3rem;
+      opacity: 0;
+      display: none;
+    }
+
+    #kiss-effect.show {
+      display: block;
+      animation: kissAnim 0.8s ease;
+    }
+
+    @keyframes kissAnim {
+      0% { transform: scale(0) rotate(-20deg); opacity: 1; }
+      50% { transform: scale(1.2) rotate(0deg); opacity: 1; }
+      100% { transform: scale(1) rotate(20deg); opacity: 0; }
+    }
+
+    #stats {
+      margin-top: 1.6rem;
+      display: grid;
+      gap: 0.4rem;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      opacity: 0;
+      animation: fadeInUp 1.4s ease-out 1.3s forwards;
+    }
+
+    #stats span {
+      display: block;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .footer {
+      margin-top: 1.8rem;
+      font-size: 0.9rem;
+      color: rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      animation: fadeInUp 1.2s ease-out 1.6s forwards;
+    }
+
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      flex-direction: column;
+      gap: 1rem;
+      color: white;
+    }
+
+    #loading .bar {
+      width: 220px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.25);
+      overflow: hidden;
+    }
+
+    #loading .bar div {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #ffd700, #ff69b4);
+      animation: loadingBar 2.5s ease-in-out forwards;
+    }
+
+    @keyframes loadingBar {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 440px) {
+      .card { padding: 1.6rem 1.2rem; }
+      h1::after { right: -1rem; top: -0.5rem; }
+      .media-grid { gap: 0.8rem; }
+      .controls { grid-template-columns: 1fr; }
+      #wish-form { grid-template-columns: 1fr; }
+      #wish-form button { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="loading">
+    <div style="font-size: 3rem;">🎂</div>
+    <div style="font-size: 1.3rem; font-weight: 700;">Selamat Ulang Tahun!</div>
+    <div style="font-size: 1rem; opacity: 0.9;">Sedang menyiapkan kejutan...</div>
+    <div class="bar"><div></div></div>
+  </div>
+
+  <div class="card" aria-live="polite">
+    <h1>Selamat Ulang Tahun myqween!</h1>
+    <p>Kamu luar biasa, kamu hebat, dan kamu selalu membuat dunia lebih cerah 🎂</p>
+    <p>Selamat ulang tahun! Semoga setiap hari selalu penuh keceriaan 🎉</p>
+
+    <div class="media-grid" aria-label="Galeri kejutan">
+      <img id="cake-img" src="foto.jpeg" alt="Kue ulang tahun" title="Klik untuk surprise!" />
+
+    </div>
+
+    <div class="controls" aria-label="Kontrol interaktif">
+      <button id="surprise-btn" class="btn btn--gift" type="button">🎁 Hadiah</button>
+      <button id="love-btn" class="btn btn--love" type="button">🎉 Ucapan</button>
+      <button id="kiss-btn" class="btn btn--kiss" type="button">🤗 Peluk</button>
+      <button id="fireworks-btn" class="btn btn--fire" type="button">✨ Api</button>
+      <button id="rain-btn" class="btn btn--rain" type="button">💧 Hujan</button>
+      <button id="sparkle-btn" class="btn btn--sparkle" type="button">💫 Kilau</button>
+      <button id="theme-btn" class="btn btn--theme" type="button">🌙 Mode</button>
+    </div>
+
+    <div id="surprise-message" class="panel hidden" role="status"></div>
+
+    <div id="love-counter" class="panel hidden" aria-label="Tingkat kebahagiaan">
+      <p style="margin:0;font-weight:700;">🎂 Tingkat Kebahagiaan:</p>
+      <div class="heart-bar"><div id="love-bar" class="heart-bar__fill"></div></div>
+      <p id="love-percent" style="margin: 0.6rem 0 0 0; text-align:center; font-weight:700;">0%</p>
+    </div>
+
+    <div id="kiss-effect">🤗🎂</div>
+
+
+    <div id="stats" class="panel" aria-label="Statistik interaksi">
+      <p><span id="click-count">0</span> Kali Kamu Klik 🖱️</p>
+      <p><span id="heartfloat-count">0</span> Balon Melayang 🎈</p>
+      <p><span id="effect-count">0</span> Efek Spesial ✨</p>
+    </div>
+  </div>
+
+
+  <script>
+    const messages = [
+      'Selamat ulang tahun! Semoga tahun ini penuh kebahagiaan dan kesuksesan 🎂',
+      'Kamu adalah orang yang luar biasa, selamat ulang tahun! 🎉',
+      'Semoga semua impianmu tercapai di tahun ini! 🌟',
+      'Terima kasih karena ada di dunia, selamat ulang tahun! 😊',
+      'Kamu membuat dunia lebih baik, happy birthday! 🌍✨',
+      'Semoga tahun ini lebih baik dari sebelumnya! 🎈',
+      'Selamat ulang tahun, myqween! 🥳',
+      'Kamu pantas mendapatkan yang terbaik, happy birthday! 🎁',
+      'Semoga umur panjang dan sehat selalu! 💪',
+      'Terima kasih atas segalanya, selamat ulang tahun! 🙏'
+    ];
+
+    const loadingEl = document.getElementById('loading');
+    const surpriseBtn = document.getElementById('surprise-btn');
+    const loveBtn = document.getElementById('love-btn');
+    const kissBtn = document.getElementById('kiss-btn');
+    const fireworksBtn = document.getElementById('fireworks-btn');
+    const rainBtn = document.getElementById('rain-btn');
+    const sparkleBtn = document.getElementById('sparkle-btn');
+    const themeBtn = document.getElementById('theme-btn');
+    const surpriseMessage = document.getElementById('surprise-message');
+    const loveCounter = document.getElementById('love-counter');
+    const loveBar = document.getElementById('love-bar');
+    const lovePercent = document.getElementById('love-percent');
+    const kissEffect = document.getElementById('kiss-effect');
+    const cakeImg = document.getElementById('cake-img');
+    const card = document.querySelector('.card');
+    const stats = {
+      clicks: 0,
+      floating: 0,
+      effects: 0
+    };
+
+    let messageIndex = 0;
+    let loveLevel = 0;
+    let darkMode = false;
+    const particlePool = new Set();
+
+    const randomBetween = (min, max) => Math.random() * (max - min) + min;
+
+    const hideLoading = () => {
+      loadingEl.style.opacity = '0';
+      setTimeout(() => { loadingEl.remove(); }, 800);
+    };
+
+    const updateStats = () => {
+      document.getElementById('click-count').textContent = stats.clicks;
+      document.getElementById('heartfloat-count').textContent = stats.floating;
+      document.getElementById('effect-count').textContent = stats.effects;
+    };
+
+    const createFloating = (emoji, duration = 2200) => {
+      stats.floating += 1;
+      updateStats();
+      const el = document.createElement('div');
+      el.textContent = emoji;
+      el.style.position = 'fixed';
+      el.style.left = `${randomBetween(10, 90)}%`;
+      el.style.bottom = '-40px';
+      el.style.fontSize = `${randomBetween(1.2, 2.8)}rem`;
+      el.style.opacity = '1';
+      el.style.pointerEvents = 'none';
+      el.style.zIndex = '9999';
+      el.style.transition = `transform ${duration}ms ease-out, opacity ${duration}ms ease-out`;
+      document.body.appendChild(el);
+
+      requestAnimationFrame(() => {
+        el.style.transform = `translateY(-110vh) rotate(${randomBetween(-40, 40)}deg)`;
+        el.style.opacity = '0';
+      });
+
+      setTimeout(() => {
+        if (document.body.contains(el)) document.body.removeChild(el);
+      }, duration + 100);
+    };
+
+    const burstConfetti = (count = 40) => {
+      stats.effects += 1;
+      updateStats();
+      const colors = ['#ff6b6b', '#ffcc5c', '#ffeead', '#88d8b0', '#ffd700', '#ff69b4'];
+      for (let i = 0; i < count; i += 1) {
+        const conf = document.createElement('div');
+        conf.style.position = 'fixed';
+        const size = randomBetween(6, 12);
+        conf.style.width = `${size}px`;
+        conf.style.height = `${size}px`;
+        conf.style.background = colors[Math.floor(Math.random() * colors.length)];
+        conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        conf.style.left = `${randomBetween(10, 90)}%`;
+        conf.style.top = `${randomBetween(30, 60)}%`;
+        conf.style.opacity = '1';
+        conf.style.pointerEvents = 'none';
+        conf.style.zIndex = '9999';
+        conf.style.boxShadow = `0 0 14px ${conf.style.background}`;
+        conf.style.transition = `transform 2.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 2.6s ease-out`;
+
+        document.body.appendChild(conf);
+        const angle = randomBetween(0, 2 * Math.PI);
+        const velocity = randomBetween(200, 450);
+        const tx = Math.cos(angle) * velocity;
+        const ty = Math.sin(angle) * -velocity;
+
+        requestAnimationFrame(() => {
+          conf.style.transform = `translate(${tx}px, ${ty}px) rotate(${randomBetween(-360, 360)}deg)`;
+          conf.style.opacity = '0';
+        });
+
+        setTimeout(() => {
+          if (document.body.contains(conf)) document.body.removeChild(conf);
+        }, 2600);
+      }
+    };
+
+    const stripParticles = () => {
+      for (const node of particlePool) {
+        if (document.body.contains(node)) document.body.removeChild(node);
+        particlePool.delete(node);
+      }
+    };
+
+    const showerStars = (count = 60) => {
+      stats.effects += 1;
+      updateStats();
+      const colors = ['#ffd700', '#ff69b4', '#4ecdc4', '#667eea', '#764ba2'];
+      for (let i = 0; i < count; i += 1) {
+        const dot = document.createElement('div');
+        dot.style.position = 'fixed';
+        const size = randomBetween(4, 10);
+        dot.style.width = `${size}px`;
+        dot.style.height = `${size}px`;
+        dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+        dot.style.borderRadius = '50%';
+        dot.style.left = `${randomBetween(5, 95)}%`;
+        dot.style.top = `${randomBetween(-10, 10)}%`;
+        dot.style.opacity = '1';
+        dot.style.pointerEvents = 'none';
+        dot.style.zIndex = '9999';
+        dot.style.boxShadow = `0 0 12px ${dot.style.background}`;
+        dot.style.transition = `transform 2s ease-in, opacity 2s ease-in`;
+
+        document.body.appendChild(dot);
+        requestAnimationFrame(() => {
+          dot.style.transform = `translateY(110vh) translateX(${randomBetween(-20, 20)}px)`;
+          dot.style.opacity = '0';
+        });
+
+        setTimeout(() => {
+          if (document.body.contains(dot)) document.body.removeChild(dot);
+        }, 2100);
+      }
+    };
+
+    const playFireworks = () => {
+      stats.effects += 1;
+      updateStats();
+      for (let burst = 0; burst < 4; burst += 1) {
+        setTimeout(() => burstConfetti(35), burst * 250);
+      }
+    };
+
+    const toggleTheme = () => {
+      darkMode = !darkMode;
+      const body = document.body;
+      const cardEl = card;
+      if (darkMode) {
+        body.style.background = 'linear-gradient(45deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0f0f23 100%)';
+        body.style.color = '#e0e0e0';
+        cardEl.style.background = 'rgba(20, 20, 32, 0.95)';
+        cardEl.style.color = '#e0e0e0';
+        themeBtn.textContent = '☀️ Mode';
+        for (let i = 0; i < 20; i += 1) {
+          setTimeout(() => createFloating('🌙', 1600), i * 40);
+        }
+      } else {
+        body.style.background = 'var(--bg)';
+        body.style.color = 'var(--text)';
+        cardEl.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 50%, rgba(255, 255, 255, 0.95) 100%)';
+        cardEl.style.color = 'var(--text)';
+        themeBtn.textContent = '🌙 Mode';
+        for (let i = 0; i < 20; i += 1) {
+          setTimeout(() => createFloating('☀️', 1600), i * 40);
+        }
+      }
+
+      themeBtn.style.transform = 'scale(1.1) rotateZ(360deg)';
+      setTimeout(() => { themeBtn.style.transform = 'scale(1) rotateZ(0deg)'; }, 420);
+
+      const flash = document.createElement('div');
+      flash.style.position = 'fixed';
+      flash.style.inset = '0';
+      flash.style.background = darkMode ? 'rgba(255,255,255,0.22)' : 'rgba(0,0,0,0.22)';
+      flash.style.zIndex = '9998';
+      flash.style.pointerEvents = 'none';
+      flash.style.opacity = '1';
+      flash.style.transition = 'opacity 0.5s ease-out';
+      document.body.appendChild(flash);
+      setTimeout(() => {
+        flash.style.opacity = '0';
+        setTimeout(() => { if (document.body.contains(flash)) document.body.removeChild(flash); }, 520);
+      }, 10);
+    };
+
+    const showSurprise = () => {
+      stats.clicks += 1;
+      updateStats();
+      surpriseMessage.classList.remove('hidden');
+      surpriseMessage.textContent = messages[messageIndex];
+      messageIndex = (messageIndex + 1) % messages.length;
+      surpriseMessage.style.animation = 'none';
+      void surpriseMessage.offsetWidth;
+      surpriseMessage.style.animation = 'fadeInUp 0.7s ease-out';
+      surpriseBtn.style.transform = 'scale(1.05)';
+      setTimeout(() => { surpriseBtn.style.transform = 'scale(1)'; }, 120);
+      burstConfetti(40);
+    };
+
+    const showLove = () => {
+      stats.clicks += 1;
+      updateStats();
+      loveLevel = Math.min(100, loveLevel + randomBetween(15, 28));
+      loveCounter.classList.remove('hidden');
+      loveBar.style.width = `${loveLevel}%`;
+      lovePercent.textContent = `${Math.round(loveLevel)}%`;
+      loveBtn.style.transform = 'scale(1.08)';
+      setTimeout(() => { loveBtn.style.transform = 'scale(1)'; }, 160);
+      createFloating('🎈', 2200);
+    };
+
+    const showKiss = () => {
+      stats.clicks += 1;
+      updateStats();
+      kissEffect.classList.add('show');
+      kissBtn.style.transform = 'scale(1.08)';
+      setTimeout(() => { kissBtn.style.transform = 'scale(1)'; }, 140);
+      setTimeout(() => { kissEffect.classList.remove('show'); }, 850);
+      for (let i = 0; i < 6; i += 1) {
+        setTimeout(() => createFloating('🎈', 2100), i * 120);
+      }
+    };
+
+    const init = () => {
+      setTimeout(hideLoading, 2400);
+
+
+      surpriseBtn.addEventListener('click', showSurprise);
+      loveBtn.addEventListener('click', showLove);
+      kissBtn.addEventListener('click', showKiss);
+      fireworksBtn.addEventListener('click', () => {
+        stats.clicks += 1;
+        updateStats();
+        playFireworks();
+        fireworksBtn.style.transform = 'scale(1.08)';
+        setTimeout(() => { fireworksBtn.style.transform = 'scale(1)'; }, 130);
+      });
+      rainBtn.addEventListener('click', () => {
+        stats.clicks += 1;
+        updateStats();
+        showerStars(72);
+        rainBtn.style.transform = 'scale(1.08)';
+        setTimeout(() => { rainBtn.style.transform = 'scale(1)'; }, 130);
+      });
+      sparkleBtn.addEventListener('click', () => {
+        stats.clicks += 1;
+        updateStats();
+        for (let i = 0; i < 80; i += 1) {
+          setTimeout(() => createFloating('✨', 1400), i * 16);
+        }
+        sparkleBtn.style.transform = 'scale(1.08)';
+        setTimeout(() => { sparkleBtn.style.transform = 'scale(1)'; }, 130);
+      });
+      themeBtn.addEventListener('click', toggleTheme);
+
+      cakeImg.addEventListener('click', () => {
+        stats.clicks += 1;
+        updateStats();
+        createFloating('🕯️', 1800);
+        createFloating('🎉', 1800);
+        burstConfetti(28);
+      });
+
+
+
+      // cursor sparkles (low impact)
+      const cursorLimit = 12;
+      const cursorSparks = [];
+      document.addEventListener('mousemove', (e) => {
+        if (cursorSparks.length > cursorLimit) {
+          const outdated = cursorSparks.shift();
+          if (outdated && document.body.contains(outdated)) {
+            document.body.removeChild(outdated);
+          }
+        }
+        const sparkle = document.createElement('div');
+        sparkle.textContent = '✨';
+        sparkle.style.position = 'fixed';
+        sparkle.style.left = `${e.clientX}px`;
+        sparkle.style.top = `${e.clientY}px`;
+        sparkle.style.fontSize = `${randomBetween(10, 18)}px`;
+        sparkle.style.opacity = '0.85';
+        sparkle.style.pointerEvents = 'none';
+        sparkle.style.zIndex = '9999';
+        sparkle.style.transition = 'opacity 0.9s ease, transform 0.9s ease';
+        sparkle.style.filter = 'drop-shadow(0 0 5px rgba(255, 215, 0, 0.8))';
+        document.body.appendChild(sparkle);
+        cursorSparks.push(sparkle);
+
+        requestAnimationFrame(() => {
+          sparkle.style.transform = `translateY(-18px) scale(0.6)`;
+          sparkle.style.opacity = '0';
+        });
+
+        setTimeout(() => {
+          if (sparkle && document.body.contains(sparkle)) {
+            document.body.removeChild(sparkle);
+          }
+        }, 900);
+      });
+
+    };
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
